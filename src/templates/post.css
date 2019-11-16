@@ -1,0 +1,15 @@
+.vscode-highlight {
+  counter-reset: line;
+}
+
+/* https://github.com/andrewbranch/gatsby-remark-vscode/issues/28 */
+.vscode-highlight-line::before {
+  width: 2rem;
+  margin-right: 1rem;
+  display: inline-block;
+  text-align: right;
+  content: counter(line);
+  counter-increment: line;
+  -webkit-user-select: none;
+  user-select: none;
+}
