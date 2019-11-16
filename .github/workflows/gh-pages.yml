@@ -36,6 +36,8 @@ jobs:
 
     - run: npm run test
 
+    - run: npx gatsby telemetry --disable
+
     - run: npm run build
 
     - name: deploy
