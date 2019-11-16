@@ -1,10 +1,11 @@
 import React from 'react';
 import { graphql } from 'gatsby';
+import { GetPostBySlugQuery } from 'generated/types/gatsby';
 
 import './post.css';
 
 interface Props {
-  data: any;
+  data: GetPostBySlugQuery;
 }
 
 const Post: React.FC<Props> = ({ data }) => {
@@ -14,7 +15,7 @@ const Post: React.FC<Props> = ({ data }) => {
 export default Post;
 
 export const query = graphql`
-  query PageTemplateQuery($slug: String!) {
+  query getPostBySlug($slug: String!) {
     markdownRemark(frontmatter: { slug: { eq: $slug } }) {
       html
     }
