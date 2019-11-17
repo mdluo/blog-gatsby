@@ -2,6 +2,9 @@
   "name": "blog-gatsby",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=10"
+  },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
