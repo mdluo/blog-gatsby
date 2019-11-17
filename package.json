@@ -11,6 +11,8 @@
     }
   },
   "scripts": {
+    "preinstall": "yum install -y libpng-devel libjpeg-devel libwebp-tools libglvnd-glx libXi",
+    "prebuild": "git submodule update --recursive",
     "build": "gatsby build",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
