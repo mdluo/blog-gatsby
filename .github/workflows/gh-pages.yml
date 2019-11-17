@@ -9,6 +9,8 @@ jobs:
   build-deploy:
     runs-on: ubuntu-18.04
     steps:
+    - uses: actions/checkout@master
+
     - run: sed -i 's/git@github.com:/https:\/\/github.com\//g' .gitmodules
 
     - uses: actions/checkout@master
