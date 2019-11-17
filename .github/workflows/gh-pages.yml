@@ -47,8 +47,4 @@ jobs:
     - run: npm run build
 
     - name: deploy
-      uses: peaceiris/actions-gh-pages@v2.5.1
-      env:
-        ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-        PUBLISH_BRANCH: gh-pages
-        PUBLISH_DIR: ./public
+      run: npx now --token ${{ secrets.ZEIT_TOKEN }}
