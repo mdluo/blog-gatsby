@@ -9,6 +9,9 @@ jobs:
   build-deploy:
     runs-on: ubuntu-18.04
     steps:
+    # https://github.com/actions/checkout/issues/14#issuecomment-523916396
+    - run: echo -e '[url "https://github.com/"]\n  insteadOf = "git@github.com:"' >> ~/.gitconfig
+
     - uses: actions/checkout@master
       with:
         submodules: recursive
