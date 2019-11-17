@@ -15,6 +15,7 @@ jobs:
     - uses: actions/checkout@v1
       with:
         submodules: recursive
+        token: ${{ secrets.ACTIONS_PAC }}
 
     - name: setup_node
       uses: actions/setup-node@v1
