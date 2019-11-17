@@ -47,4 +47,4 @@ jobs:
     - run: npm run build
 
     - name: deploy
-      run: npx now --token ${{ secrets.ZEIT_TOKEN }}
+      run: cd public && npx now --prod --token ${{ secrets.ZEIT_TOKEN }}
