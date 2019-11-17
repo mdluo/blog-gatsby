@@ -9,14 +9,12 @@ jobs:
   build-deploy:
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@master
+    - name: setup_git
+      run: 'git config --global url."https://x-access-token:${ACTIONS_PAC}@github.com/".insteadOf git@github.com:'
 
-    - run: sed -i 's/git@github.com:/https:\/\/github.com\//g' .gitmodules
-
-    - uses: actions/checkout@master
+    - uses: actions/checkout@v1
       with:
         submodules: recursive
-        token: ${{ secrets.ACTIONS_PAC }}
 
     - name: setup_node
       uses: actions/setup-node@v1
