@@ -10,16 +10,25 @@ const Corner: React.FC = () => {
     query Corner {
       site {
         siteMetadata {
-          repo
+          github {
+            owner
+            repo
+          }
         }
       }
     }
   `);
 
+  const {
+    site: {
+      siteMetadata: { github },
+    },
+  } = data;
+
   return (
     <a
       className="github-corner position-absolute top-0 right-0"
-      href={data.site.siteMetadata.repo}
+      href={`https://github.com/${github.owner}/${github.repo}`}
       target="_blank"
       rel="noopener noreferrer"
     >

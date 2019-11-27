@@ -7,8 +7,11 @@ module.exports = {
     description: ``,
     author: `mdluo`,
     menu: ['Wiki', 'About'],
-    repo: `https://github.com/mdluo/blog-gatsby`,
-    disqus: `mdluo-local`,
+    github: {
+      owner: `mdluo`,
+      repo: `blog-gatsby`,
+    },
+    disqus: process.env.GATSBY_DISQUS || `mdluo`,
   },
   plugins: [
     {
