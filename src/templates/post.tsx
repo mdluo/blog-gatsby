@@ -79,7 +79,7 @@ const Post: React.FC<Props> = ({ data }) => {
         )}
       </p>
       <div
-        className="markdown-body my-5"
+        className="markdown-body mt-5 mb-6"
         dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
       />
       <DiscussionEmbed
