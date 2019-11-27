@@ -1,0 +1,51 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  @include background-2x('/images/gplaypattern', 'png', 188px, 178px, left top, repeat);
+  border-top: 5px solid $blue-500;
+  font-weight: $body-font-weight;
+}
+
+#___gatsby, #gatsby-focus-wrapper {
+  height: 100%;
+}
+
+.link-hover-gray:hover {
+  color: $gray !important;
+  text-decoration: none;
+}
+
+.link-hover-gray-dark:hover {
+  color: $gray-dark !important;
+  text-decoration: none;
+}
+
+.link-hover-gray-light:hover {
+  color: $gray-light !important;
+  text-decoration: none;
+}
+
+.lh-3 {
+  line-height: 30px !important;
+}
+
+h1, .markdown-body h1 {
+  font-size: 1.3rem;
+}
+h2, .markdown-body h2 {
+  font-size: 1.2rem;
+}
+h3, .markdown-body h3 {
+  font-size: 1.1rem;
+}
+h4, .markdown-body h4 {
+  font-size: 1.0rem;
+}
+h5, .markdown-body h5 {
+  font-size: 0.9rem;
+}
+h6, .markdown-body h6 {
+  font-size: 0.8rem;
+}

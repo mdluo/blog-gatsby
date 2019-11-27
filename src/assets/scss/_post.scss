@@ -1,0 +1,48 @@
+:root {
+  --vscode-highlight-padding-v: 0 !important;
+  --vscode-highlight-padding-h: 0 !important;
+}
+
+pre.vscode-highlight {
+  padding: 0;
+  margin-bottom: 1rem;
+  background-color: $gray-100 !important;
+  border-radius: var(--vscode-highlight-border-radius);
+  position: relative;
+  counter-reset: line;
+
+  code.vscode-highlight-code {
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--vscode-highlight-border-radius);
+    border-left: 2.5rem solid $gray-200;
+    display: inline-block;
+    line-height: 1.8;
+
+    // https://github.com/andrewbranch/gatsby-remark-vscode/issues/28
+    .vscode-highlight-line {
+      display: inline !important;
+
+      &.no-ln::before {
+        display: none;
+      }
+
+      &::before {
+        width: 1.8rem;
+        position: absolute;
+        left: 0;
+        text-align: right;
+        color: $text-gray-light;
+        content: counter(line);
+        counter-increment: line;
+        user-select: none;
+      }
+    }
+  }
+}
+
+.example-code {
+  padding: 0.5rem 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: var(--vscode-highlight-border-radius);
+  background-color: $gray-100;
+}

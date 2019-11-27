@@ -1,12 +1,28 @@
 const path = require('path');
+const pxtorem = require('postcss-pxtorem');
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `mdluo's blog`,
+    description: ``,
+    author: `mdluo`,
+    menu: ['Wiki', 'About'],
+    repo: `https://github.com/mdluo/blog-gatsby`,
+    disqus: `mdluo-local`,
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `mdluo's blog`,
+        short_name: `mdluo`,
+        start_url: `/`,
+        background_color: `#663399`,
+        theme_color: `#663399`,
+        display: `minimal-ui`,
+        icon: `src/assets/images/favicon.svg`,
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -20,6 +36,53 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/assets/images`,
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-sass',
+      options: {
+        includePaths: [
+          path.resolve(__dirname, 'src/assets/scss'),
+          path.resolve(__dirname, 'node_modules'),
+        ],
+        postCssPlugins: [
+          pxtorem({
+            rootValue: 16,
+            unitPrecision: 5,
+            propList: [
+              'font',
+              'font-size',
+              'line-height',
+              'letter-spacing',
+              'margin',
+              'margin-top',
+              'margin-left',
+              'margin-bottom',
+              'margin-right',
+              'padding',
+              'padding-top',
+              'padding-left',
+              'padding-bottom',
+              'padding-right',
+              'border-radius',
+              'width',
+              'max-width',
+            ],
+            selectorBlackList: [],
+            replace: true,
+            mediaQuery: false,
+            minPixelValue: 0,
+          }),
+        ],
+        precision: 8,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-react-svg`,
+      options: {
+        rule: {
+          include: /assets/,
+        },
       },
     },
     {
@@ -38,29 +101,20 @@ module.exports = {
           },
           {
             resolve: `gatsby-remark-vscode`,
-            // All options are optional. Defaults shown here.
             options: {
-              colorTheme: 'Atom One Light', // Read on for list of included themes. Also accepts object and function forms.
-              wrapperClassName: '', // Additional class put on 'pre' tag
-              injectStyles: true, // Injects (minimal) additional CSS for layout and scrolling
+              extensionDataDirectory: path.resolve('extensions'),
               extensions: [
                 {
                   identifier: 'akamud.vscode-theme-onelight',
                   version: '2.1.0',
                 },
-              ], // Extensions to download from the marketplace to provide more languages and themes
-              // Absolute path to the directory where extensions will be downloaded. Defaults to inside node_modules.
-              extensionDataDirectory: path.resolve('extensions'),
-              languageAliases: {}, // Map of custom/unknown language codes to standard/known language codes
-              replaceColor: x => x, // Function allowing replacement of a theme color with another. Useful for replacing hex colors with CSS variables.
-              getLineClassName: ({
-                // Function allowing dynamic setting of additional class names on individual lines
-                content, //   - the string content of the line
-                index, //   - the zero-based index of the line within the code fence
-                language, //   - the language specified for the code fence
-                codeFenceOptions, //   - any options set on the code fence alongside the language (more on this later)
-              }) => '',
-              logLevel: 'error', // Set to 'warn' to debug if something looks wrong
+              ],
+              colorTheme: 'Atom One Light',
+              getLineClassName: ({ codeFenceOptions }) => {
+                if (codeFenceOptions.ln === false) {
+                  return 'no-ln';
+                }
+              },
             },
           },
           'gatsby-remark-copy-linked-files',
@@ -70,18 +124,6 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/assets/images/gatsby-icon.png`, // This path is relative to the root of the site.
-      },
-    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     `gatsby-plugin-offline`,

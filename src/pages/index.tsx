@@ -1,26 +1,58 @@
 import React from 'react';
-import { Link } from 'gatsby';
+import moment from 'moment';
+import { Link, graphql, useStaticQuery } from 'gatsby';
+import Octicon, { Calendar, Tag } from '@primer/octicons-react';
+import { GetPostsQuery } from 'generated/types/gatsby';
 
-import Layout from '../components/layout';
-import Image from '../components/image';
-import SEO from '../components/seo';
+import Layout from '../components/Layout';
 
-const IndexPage: React.FC = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <p>
-      <Link to="/test">Test</Link>
-    </p>
-    <p>
-      <Link to="/page-2/">Go to page 2</Link>
-    </p>
-  </Layout>
-);
+const Index: React.FC = () => {
+  const data = useStaticQuery<GetPostsQuery>(graphql`
+    query GetPosts {
+      allMarkdownRemark(sort: { order: DESC, fields: frontmatter___date }) {
+        edges {
+          node {
+            frontmatter {
+              title
+              date
+              tags
+              slug
+            }
+          }
+        }
+      }
+    }
+  `);
+  return (
+    <Layout padding={false}>
+      {(data?.allMarkdownRemark?.edges ?? []).map(({ node }) => (
+        <article className="border-bottom px-3 pt-3 pb-2">
+          <Link
+            className="text-gray-dark link-hover-gray-light"
+            to={`${moment(node.frontmatter.date).format('YYYY-MM-DD')}/${
+              node.frontmatter.slug
+            }`}
+          >
+            {node.frontmatter.title}
+          </Link>
+          <p className="f6 text-gray-light mt-2">
+            <span className="d-inline-block mr-3">
+              <Octicon icon={Calendar} />
+              <span className="ml-2">
+                {moment(node.frontmatter.date).format('MMM DD, YYYY')}
+              </span>
+            </span>
+            <span className="d-inline-block mr-3">
+              <Octicon icon={Tag} />
+              <span className="ml-1">
+                {(node.frontmatter.tags ?? []).join(', ')}
+              </span>
+            </span>
+          </p>
+        </article>
+      ))}
+    </Layout>
+  );
+};
 
-export default IndexPage;
+export default Index;

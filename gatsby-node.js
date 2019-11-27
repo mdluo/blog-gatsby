@@ -13,4 +13,4 @@ require('ts-node').register({
   },
 });
 
-exports.createPages = require('./src/lib/createPages').createPages;
+exports.createPages = require('./src/gatsby/createPages').createPages;
