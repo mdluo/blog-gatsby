@@ -11,7 +11,7 @@ module.exports = {
       owner: `mdluo`,
       repo: `blog-gatsby`,
     },
-    disqus: process.env.GATSBY_DISQUS || `mdluo`,
+    disqus: process.env.GITHUB_ACTIONS ? `mdluo` : `mdluo-local`,
   },
   plugins: [
     {
