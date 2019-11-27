@@ -29,9 +29,7 @@ const Index: React.FC = () => {
         <article className="border-bottom px-3 pt-3 pb-2">
           <Link
             className="text-gray-dark link-hover-gray-light"
-            to={`${moment(node.frontmatter.date).format('YYYY-MM-DD')}/${
-              node.frontmatter.slug
-            }`}
+            to={node.frontmatter.slug}
           >
             {node.frontmatter.title}
           </Link>

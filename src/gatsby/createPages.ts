@@ -1,5 +1,4 @@
 import * as path from 'path';
-import moment from 'moment';
 import graphql from 'graphql-tag';
 import { print } from 'graphql/language/printer';
 import { GatsbyNode } from 'gatsby';
@@ -51,10 +50,10 @@ export const createPages: GatsbyNode['createPages'] = async ({
    * https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html
    */
   (result?.data?.allMarkdownRemark?.edges ?? []).forEach(({ node }) => {
-    const { date, slug } = node.frontmatter;
+    const { slug } = node.frontmatter;
     createPage({
       // Path for this page — required
-      path: `${moment(date).format('YYYY-MM-DD')}/${slug}`,
+      path: slug,
       component: postTemplate,
       context: {
         // Add optional context data to be inserted
