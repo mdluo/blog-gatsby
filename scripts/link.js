@@ -1,8 +1,5 @@
-const fs = require('fs');
 const axios = require('axios');
 const querystring = require('querystring');
-const glob = require('fast-glob');
-const matter = require('gray-matter');
 
 const {
   siteMetadata: { github },
@@ -18,6 +15,9 @@ const short = async slug => {
   return res.headers.location;
 };
 
+module.exports = short;
+
+/*
 (async () => {
   try {
     const files = await glob('contents/*.md');
@@ -33,3 +33,4 @@ const short = async slug => {
     console.error(error);
   }
 })();
+*/
