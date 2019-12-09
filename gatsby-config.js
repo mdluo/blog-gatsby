@@ -113,6 +113,11 @@ module.exports = {
                 },
               ],
               colorTheme: 'Atom One Light',
+              wrapperClassName: ({ parsedOptions }) => {
+                if (parsedOptions.ln === false) {
+                  return 'no-ln';
+                }
+              },
               getLineClassName: ({ codeFenceOptions }) => {
                 if (codeFenceOptions.ln === false) {
                   return 'no-ln';

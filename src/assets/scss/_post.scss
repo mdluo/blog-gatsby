@@ -11,6 +11,11 @@ pre.vscode-highlight {
   position: relative;
   counter-reset: line;
 
+  &.no-ln code.vscode-highlight-code {
+    padding: 0.8rem;
+    border-left: none;
+  }
+
   code.vscode-highlight-code {
     padding: 0.5rem 0.8rem;
     border-radius: var(--vscode-highlight-border-radius);
