@@ -9,7 +9,10 @@ import Layout from '../components/Layout';
 const Index: React.FC = () => {
   const data = useStaticQuery<GetPostsQuery>(graphql`
     query GetPosts {
-      allMarkdownRemark(sort: { order: DESC, fields: frontmatter___date }) {
+      allMarkdownRemark(
+        sort: { order: DESC, fields: frontmatter___date }
+        filter: { frontmatter: { type: { eq: "post" } } }
+      ) {
         edges {
           node {
             frontmatter {
