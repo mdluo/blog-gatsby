@@ -1,6 +1,44 @@
 const path = require('path');
 const pxtorem = require('postcss-pxtorem');
 
+const gatsbyRemarkPlugins = [
+  {
+    resolve: 'gatsby-remark-images',
+    options: {
+      maxWidth: 960,
+    },
+  },
+  {
+    resolve: 'gatsby-remark-responsive-iframe',
+    options: { wrapperStyle: 'margin-bottom: 1.0725rem' },
+  },
+  {
+    resolve: `gatsby-remark-vscode`,
+    options: {
+      extensionDataDirectory: path.resolve('extensions'),
+      extensions: [
+        {
+          identifier: 'akamud.vscode-theme-onelight',
+          version: '2.1.0',
+        },
+      ],
+      colorTheme: 'Atom One Light',
+      wrapperClassName: ({ parsedOptions }) => {
+        if (parsedOptions.ln === false) {
+          return 'no-ln';
+        }
+      },
+      getLineClassName: ({ codeFenceOptions }) => {
+        if (codeFenceOptions.ln === false) {
+          return 'no-ln';
+        }
+      },
+    },
+  },
+  'gatsby-remark-copy-linked-files',
+  'gatsby-remark-autolink-headers',
+];
+
 module.exports = {
   siteMetadata: {
     title: `mdluo's blog`,
@@ -89,45 +127,10 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-transformer-remark`,
+      resolve: `gatsby-plugin-mdx`,
       options: {
-        plugins: [
-          {
-            resolve: 'gatsby-remark-images',
-            options: {
-              maxWidth: 960,
-            },
-          },
-          {
-            resolve: 'gatsby-remark-responsive-iframe',
-            options: { wrapperStyle: 'margin-bottom: 1.0725rem' },
-          },
-          {
-            resolve: `gatsby-remark-vscode`,
-            options: {
-              extensionDataDirectory: path.resolve('extensions'),
-              extensions: [
-                {
-                  identifier: 'akamud.vscode-theme-onelight',
-                  version: '2.1.0',
-                },
-              ],
-              colorTheme: 'Atom One Light',
-              wrapperClassName: ({ parsedOptions }) => {
-                if (parsedOptions.ln === false) {
-                  return 'no-ln';
-                }
-              },
-              getLineClassName: ({ codeFenceOptions }) => {
-                if (codeFenceOptions.ln === false) {
-                  return 'no-ln';
-                }
-              },
-            },
-          },
-          'gatsby-remark-copy-linked-files',
-          'gatsby-remark-autolink-headers',
-        ],
+        extensions: [`.md`, `.mdx`],
+        gatsbyRemarkPlugins,
       },
     },
     `gatsby-transformer-sharp`,

@@ -9,7 +9,7 @@ import Layout from '../components/Layout';
 const Index: React.FC = () => {
   const data = useStaticQuery<GetPostsQuery>(graphql`
     query GetPosts {
-      allMarkdownRemark(
+      allMdx(
         sort: { order: DESC, fields: frontmatter___date }
         filter: { frontmatter: { type: { eq: "post" } } }
       ) {
@@ -28,7 +28,7 @@ const Index: React.FC = () => {
   `);
   return (
     <Layout padding={false}>
-      {(data?.allMarkdownRemark?.edges ?? []).map(({ node }) => (
+      {(data?.allMdx?.edges ?? []).map(({ node }) => (
         <article className="border-bottom px-3 pt-3 pb-2">
           <Link
             className="text-gray-dark link-hover-gray-light"

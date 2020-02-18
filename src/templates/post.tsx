@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import { graphql } from 'gatsby';
+import { MDXRenderer } from 'gatsby-plugin-mdx';
 import { DiscussionEmbed } from 'disqus-react';
 
 import Octicon, { Calendar, Tag, Link } from '@primer/octicons-react';
@@ -17,7 +18,7 @@ interface Props {
 
 export const query = graphql`
   query GetPostBySlug($slug: String!) {
-    markdownRemark(frontmatter: { slug: { eq: $slug } }) {
+    mdx(frontmatter: { slug: { eq: $slug } }) {
       frontmatter {
         type
         slug
@@ -26,7 +27,7 @@ export const query = graphql`
         link
         tags
       }
-      html
+      body
       excerpt
     }
     site {
@@ -39,11 +40,11 @@ export const query = graphql`
 
 const Post: React.FC<Props> = ({ data }) => {
   const {
-    markdownRemark,
+    mdx,
     site: { siteMetadata },
   } = data;
 
-  const { type, title, date, slug, tags, link } = markdownRemark.frontmatter;
+  const { type, title, date, slug, tags, link } = mdx.frontmatter;
 
   return (
     <Layout>
@@ -67,10 +68,9 @@ const Post: React.FC<Props> = ({ data }) => {
           )}
         </p>
       )}
-      <div
-        className="markdown-body mt-5 mb-6"
-        dangerouslySetInnerHTML={{ __html: markdownRemark.html }}
-      />
+      <div className="markdown-body mt-5 mb-6">
+        <MDXRenderer>{mdx.body}</MDXRenderer>
+      </div>
       <DiscussionEmbed
         shortname={siteMetadata.disqus}
         config={{
@@ -79,7 +79,7 @@ const Post: React.FC<Props> = ({ data }) => {
           identifier: slug,
         }}
       />
-      <SEO title={title} description={markdownRemark.excerpt} />
+      <SEO title={title} description={mdx.excerpt} />
     </Layout>
   );
 };

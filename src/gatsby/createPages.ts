@@ -11,10 +11,7 @@ import { LoadPagesQuery } from 'generated/types/gatsby';
  */
 export const schema = graphql`
   query loadPages($limit: Int!) {
-    allMarkdownRemark(
-      limit: $limit
-      filter: { frontmatter: { draft: { ne: true } } }
-    ) {
+    allMdx(limit: $limit, filter: { frontmatter: { draft: { ne: true } } }) {
       edges {
         node {
           frontmatter {
@@ -49,7 +46,7 @@ export const createPages: GatsbyNode['createPages'] = async ({
    * Optional Chaining and Nullish Coalescing
    * https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html
    */
-  (result?.data?.allMarkdownRemark?.edges ?? []).forEach(({ node }) => {
+  (result?.data?.allMdx?.edges ?? []).forEach(({ node }) => {
     const { slug } = node.frontmatter;
     createPage({
       // Path for this page — required
