@@ -64,6 +64,13 @@ module.exports = {
         icon: `src/assets/images/favicon.svg`,
       },
     },
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        // replace this with your own Tracking ID
+        trackingId: `UA-108097003-4`,
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
