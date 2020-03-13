@@ -13,6 +13,7 @@ const Index: React.FC = () => {
         sort: { order: DESC, fields: frontmatter___date }
         filter: { frontmatter: { type: { eq: "post" } } }
       ) {
+        totalCount
         edges {
           node {
             frontmatter {
