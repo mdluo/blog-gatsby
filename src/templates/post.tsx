@@ -1,23 +1,37 @@
-import React from 'react';
-import moment from 'moment';
-import { graphql } from 'gatsby';
+import React, { useLayoutEffect } from 'react';
+import { Helmet } from 'react-helmet';
+import { graphql as gql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import { DiscussionEmbed } from 'disqus-react';
+import {
+  ClockIcon,
+  StopIcon,
+  CalendarIcon,
+  TagIcon,
+  CopyIcon,
+} from '@primer/octicons-react';
+import { Googletranslate } from '@icons-pack/react-simple-icons';
+import Loadable from '@loadable/component';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
-import Octicon, { Calendar, Tag, Link } from '@primer/octicons-react';
-import { GetPostBySlugQuery } from 'generated/types/gatsby';
+import Layout from 'components/layout';
+import Copy from 'components/copy';
+import Comment from 'components/comment';
 
-import Layout from '../components/Layout';
-import SEO from '../components/SEO';
-import Copy from '../components/Copy';
-import '../assets/scss/styles.scss';
+dayjs.extend(relativeTime);
+
+const Alert = Loadable(() => import('components/alert'));
 
 interface Props {
-  data: GetPostBySlugQuery;
+  data: GatsbyTypes.LoadPostQuery;
 }
 
-export const query = graphql`
-  query GetPostBySlug($slug: String!) {
+/**
+ * Gatsby implicitly extract the query, run it and inject the result by `props.data`
+ * https://www.gatsbyjs.com/docs/how-to/querying-data/page-query
+ */
+export const LOAD_POST_QUERY = gql`
+  query LoadPost($slug: String!) {
     mdx(frontmatter: { slug: { eq: $slug } }) {
       frontmatter {
         type
@@ -26,60 +40,130 @@ export const query = graphql`
         date
         link
         tags
+        keywords
+        lasting
+        translated
+        invalid
+        no_comment
       }
       body
       excerpt
     }
     site {
       siteMetadata {
-        disqus
+        title
+        description
+        author
+        repo
       }
     }
   }
 `;
 
 const Post: React.FC<Props> = ({ data }) => {
+  const { mdx, site: { siteMetadata } } = data;
   const {
-    mdx,
-    site: { siteMetadata },
-  } = data;
+    type,
+    title,
+    date,
+    tags,
+    keywords,
+    link,
+    lasting,
+    translated,
+    invalid,
+    no_comment,
+  } = mdx.frontmatter;
 
-  const { type, title, date, slug, tags, link } = mdx.frontmatter;
+  useLayoutEffect(() => {
+    const pres = document.querySelectorAll<HTMLPreElement>('pre.grvsc-container');
+    pres.forEach((pre) => {
+      const code = pre.querySelector('code');
+      const div = document.createElement('div');
+      div.classList.add('overflow-x-auto');
+      pre.appendChild(div);
+      div.appendChild(code);
+      pre.classList.add('overflow-x-hidden');
+
+      if (pre.className.includes('prompt-')) {
+        pre.querySelectorAll<HTMLSpanElement>('.grvsc-line').forEach((line) => {
+          const source = line.querySelector<HTMLSpanElement>('.grvsc-source > span');
+          if (!source || !source.innerText.trim().length || source.innerText.startsWith(' ')) {
+            line.querySelector('.grvsc-line-number').classList.add('no-line-number');
+          }
+        });
+      }
+    });
+  }, []);
+
+  const now = dayjs();
+  const createdAt = dayjs(date);
+  const outdated = lasting || createdAt.isBefore(now.subtract(2, 'year'));
 
   return (
-    <Layout>
-      <h1 className="mb-2">{title}</h1>
-
+    <Layout siteMetadata={siteMetadata}>
+      <h1 className="f3 mb-2">{title}</h1>
       {type === 'post' && (
-        <p className="f5 text-gray-light">
+        <p className="f5 text-color-secondary">
           <span className="d-inline-block mr-3">
-            <Octicon icon={Calendar} />
-            <span className="ml-2">{moment(date).format('MMM DD, YYYY')}</span>
+            <CalendarIcon className="mr-2" size={12} verticalAlign="unset" />
+            {createdAt.format('DD MMM, YYYY')}
           </span>
-          <span className="d-inline-block mr-3">
-            <Octicon icon={Tag} />
-            <span className="ml-1">{(tags ?? []).join(', ')}</span>
-          </span>
+          {tags && (
+            <span className="d-inline-block mr-3">
+              <TagIcon className="mr-1" size={12} verticalAlign="unset" />
+              {tags.join(', ')}
+            </span>
+          )}
           {link && (
             <span className="d-inline-block mr-3">
-              <Octicon icon={Link} />
+              <CopyIcon
+                className="mr-1"
+                size={12}
+                verticalAlign="unset"
+              />
               <Copy link={link} />
             </span>
           )}
         </p>
       )}
-      <div className="markdown-body mt-5 mb-6">
-        <MDXRenderer>{mdx.body}</MDXRenderer>
-      </div>
-      <DiscussionEmbed
-        shortname={siteMetadata.disqus}
-        config={{
-          title,
-          url: link,
-          identifier: slug,
-        }}
-      />
-      <SEO title={title} description={mdx.excerpt} />
+      {!invalid && outdated && (
+        <Alert>
+          <ClockIcon />
+          This post was written more than {createdAt.fromNow()}, some
+          information may be outdated.
+        </Alert>
+      )}
+      {!invalid && translated && (
+        <Alert color="warn">
+          <Googletranslate className="octicon" size="1em" />
+          This post was translated by Google, some wording may be incorrect.
+        </Alert>
+      )}
+      {invalid && (
+        <Alert color="error" closeable={false}>
+          <StopIcon />
+          This post is no longer valid (likely due to the content is way too outdated).
+        </Alert>
+      )}
+      {!invalid && (
+        <article className="markdown-body my-4">
+          <MDXRenderer>{mdx.body}</MDXRenderer>
+        </article>
+      )}
+      {!(invalid || no_comment) && (
+        <>
+          <hr />
+          <Comment repo={siteMetadata.repo} />
+        </>
+      )}
+      <Helmet>
+        <title>{title}</title>
+        <meta name="description" content={mdx.excerpt} />
+        {keywords?.length && (
+          <meta name="keywords" content={keywords.join(',')} />
+        )}
+      </Helmet>
     </Layout>
   );
 };

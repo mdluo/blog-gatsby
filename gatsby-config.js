@@ -1,151 +1,133 @@
 const path = require('path');
-const pxtorem = require('postcss-pxtorem');
-
-const gatsbyRemarkPlugins = [
-  {
-    resolve: 'gatsby-remark-images',
-    options: {
-      maxWidth: 960,
-    },
-  },
-  {
-    resolve: 'gatsby-remark-responsive-iframe',
-    options: { wrapperStyle: 'margin-bottom: 1.0725rem' },
-  },
-  {
-    resolve: `gatsby-remark-vscode`,
-    options: {
-      extensionDataDirectory: path.resolve('extensions'),
-      extensions: [
-        {
-          identifier: 'akamud.vscode-theme-onelight',
-          version: '2.1.0',
-        },
-      ],
-      colorTheme: 'Atom One Light',
-      wrapperClassName: ({ parsedOptions }) => {
-        if (parsedOptions.ln === false) {
-          return 'no-ln';
-        }
-      },
-      getLineClassName: ({ codeFenceOptions }) => {
-        if (codeFenceOptions.ln === false) {
-          return 'no-ln';
-        }
-      },
-    },
-  },
-  'gatsby-remark-copy-linked-files',
-  'gatsby-remark-autolink-headers',
-];
+const fileIconTable = require('file-icons/lib/icons/icon-tables');
 
 module.exports = {
   siteMetadata: {
     title: `mdluo's blog`,
-    description: ``,
+    description: '',
     author: `mdluo`,
-    menu: ['Wiki', 'About'],
-    github: {
-      owner: `mdluo`,
-      repo: `blog-gatsby`,
-    },
-    disqus: process.env.GITHUB_ACTIONS ? `mdluo` : `mdluo-local`,
+    repo: 'mdluo/blog-gatsby',
   },
   plugins: [
     {
-      resolve: `gatsby-plugin-manifest`,
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: `mdluo's blog`,
-        short_name: `mdluo`,
-        start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/assets/images/favicon.svg`,
+        name: 'pages',
+        path: 'src/pages',
       },
+      __key: 'pages',
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-source-filesystem',
       options: {
-        // replace this with your own Tracking ID
-        trackingId: `UA-108097003-4`,
+        name: 'posts',
+        path: 'contents',
       },
-    },
-    `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `contents`,
-        path: `${__dirname}/contents`,
-      },
+      __key: 'posts',
     },
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
-        name: `images`,
-        path: `${__dirname}/src/assets/images`,
+        name: 'images',
+        path: 'src/images',
       },
+      __key: 'images',
     },
     {
-      resolve: 'gatsby-plugin-sass',
-      options: {
-        includePaths: [
-          path.resolve(__dirname, 'src/assets/scss'),
-          path.resolve(__dirname, 'node_modules'),
-        ],
-        postCssPlugins: [
-          pxtorem({
-            rootValue: 16,
-            unitPrecision: 5,
-            propList: [
-              'font',
-              'font-size',
-              'line-height',
-              'letter-spacing',
-              'margin',
-              'margin-top',
-              'margin-left',
-              'margin-bottom',
-              'margin-right',
-              'padding',
-              'padding-top',
-              'padding-left',
-              'padding-bottom',
-              'padding-right',
-              'border-radius',
-              'width',
-              'max-width',
-            ],
-            selectorBlackList: [],
-            replace: true,
-            mediaQuery: false,
-            minPixelValue: 0,
-          }),
-        ],
-        precision: 8,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-react-svg`,
+      resolve: 'gatsby-plugin-react-svg',
       options: {
         rule: {
-          include: /assets/,
+          include: /images/,
         },
       },
     },
     {
-      resolve: `gatsby-plugin-mdx`,
+      resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: [`.md`, `.mdx`],
-        gatsbyRemarkPlugins,
+        gatsbyRemarkPlugins: [
+          {
+            resolve: 'gatsby-remark-autolink-headers',
+            options: {
+              elements: ['h1', 'h2', 'h3'],
+              enableCustomId: true,
+            },
+          },
+          {
+            resolve: 'gatsby-remark-vscode',
+            options: {
+              theme: {
+                default: 'Atom One Light',
+                parentSelector: {
+                  'body.light-mode': 'Atom One Light',
+                  'body.dark-mode': 'One Dark Pro',
+                },
+              },
+              extensions: [
+                path.resolve(
+                  'extensions/akamud.vscode-theme-onelight-2.2.3.vsix'
+                ),
+                path.resolve(
+                  'extensions/zhuangtongfa.Material-theme-3.12.1.vsix'
+                ),
+              ],
+              wrapperClassName: ({ language, parsedOptions }) => {
+                const classNames = [];
+                const match = fileIconTable.matchName(`.${language}`);
+                if (match) {
+                  const [color] = match.colour;
+                  classNames.push(color);
+                }
+                if (parsedOptions.noLabel || language === 'shell') {
+                  classNames.push('no-label');
+                }
+                if (parsedOptions.prompt === '$') {
+                  classNames.push('prompt-dollar');
+                }
+                if (parsedOptions.prompt === '#') {
+                  classNames.push('prompt-hash');
+                }
+                return classNames.join(' ');
+              },
+              languageAliases: {
+                shell: 'sh',
+              },
+            },
+          },
+        ],
       },
     },
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    `gatsby-plugin-offline`,
-    `gatsby-plugin-typescript`,
-    `gatsby-plugin-typegen`,
+    'gatsby-plugin-use-dark-mode',
+    {
+      resolve: 'gatsby-plugin-draft',
+      options: {
+        nodeType: 'Mdx',
+        // set `fields.draft` to `false` for all nodes when NODE_ENV is
+        // 'development'
+        publishDraft: process.env.NODE_ENV === 'development',
+      },
+    },
+    {
+      resolve: 'gatsby-plugin-typegen',
+      options: {
+        outputPath: `.cache/generated/gatsby-types.d.ts`,
+        emitSchema: {
+          '.cache/generated/gatsby-schema.graphql': true,
+          '.cache/generated/gatsby-introspection.json': true,
+        },
+      },
+    },
+    'gatsby-plugin-sass',
+    'gatsby-plugin-styled-components',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
+    'gatsby-plugin-offline',
+    'gatsby-plugin-react-helmet',
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        icon: 'src/images/favicon.svg',
+      },
+    }
   ],
 };

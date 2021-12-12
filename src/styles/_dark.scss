@@ -1,0 +1,150 @@
+body.dark-mode {
+  $text-color-strong: lighten($gray-200, 5%);
+  $text-color-primary: $gray-200;
+  $text-color-primary-muted: darken($gray-200, 10%);
+  $text-color-secondary: darken($gray-300, 15%);
+  $text-color-secondary-muted: $gray-400;
+  $text-color-blue: $blue-light;
+
+  .text-color-strong {
+    color: $text-color-strong;
+  }
+
+  &, .text-color-primary {
+    color: $text-color-primary;
+  }
+
+  .text-color-primary-muted {
+    color: $text-color-primary-muted;
+  }
+
+  .text-color-secondary {
+    color: $text-color-secondary;
+  }
+
+  .text-color-secondary-muted {
+    color: $text-color-secondary-muted;
+  }
+
+  a, .text-color-blue {
+    color: $text-color-blue;
+  }
+
+  background-color: $black;
+  background-blend-mode: color-burn;
+  -webkit-background-composite: plus-darker;
+  border-top-color: $blue-light;
+
+  a.header-title {
+    color: $text-color-secondary-muted;
+
+    &:hover {
+      color: $text-color-strong;
+    }
+  }
+
+  .bg-white {
+    background-color: $gray-800 !important;
+  }
+
+  .box-shadow {
+    box-shadow: 0 1px 0 rgba($gray-500, 0.1) !important;
+  }
+
+  .border-bottom, .border-gray-light {
+    border-color: $gray-700 !important;
+  }
+
+  hr {
+    border-color: $gray-400;
+  }
+
+  .markdown-body {
+    h1,
+    h2,
+    h3 {
+      color: $text-color-strong;
+      border-color: $gray-700;
+
+      &[id] a.anchor {
+        svg path {
+          fill: $text-color-strong;
+        }
+      }
+    }
+
+    strong {
+      color: $text-color-strong;
+    }
+
+    code {
+      background-color: change-color($black, $saturation: 25%, $lightness: 18%, $alpha: 0.4);
+    }
+
+    blockquote {
+      color: $text-color-secondary-muted;
+      border-color: $text-color-secondary-muted;
+    }
+
+    table {
+      tr, td, th {
+        border-color: $gray-900;
+      }
+
+      tr {
+        background-color: $gray-800;
+
+        &:nth-child(2n) {
+          background-color: $gray-700;
+        }
+      }
+    }
+  }
+
+  pre.grvsc-container {
+    &, code {
+      background-color: #282c34;
+    }
+
+    .grvsc-gutter-pad, .grvsc-line-number {
+      background-color: #21252b;
+    }
+
+    .grvsc-line-number {
+      color: #495162;
+    }
+
+    &[data-language]:not(.no-label):before {
+      color: $gray-200;
+      background-color: $gray-600;
+    }
+  }
+
+  .flash {
+    color: $text-color-primary-muted;
+    background-color: change-color($blue-100, $saturation: 25%, $lightness: 18%);
+    border-color: change-color($blue-700, $saturation: 50%, $lightness: 60%, $alpha: 0.2);
+
+    .octicon {
+      color: change-color($blue-700, $saturation: 50%, $lightness: 60%, $alpha: 0.6);
+    }
+  }
+
+  .flash-warn {
+    background-color: change-color($yellow-100, $saturation: 25%, $lightness: 18%);
+    border-color: change-color($yellow-700, $saturation: 50%, $lightness: 60%, $alpha: 0.2);
+
+    .octicon {
+      color: change-color($yellow-700, $saturation: 50%, $lightness: 60%, $alpha: 0.6);
+    }
+  }
+
+  .flash-error {
+    background-color: change-color($red-100, $saturation: 25%, $lightness: 22%);
+    border-color: change-color($red-700, $saturation: 50%, $lightness: 60%, $alpha: 0.2);
+
+    .octicon {
+      color: change-color($red-700, $saturation: 50%, $lightness: 60%, $alpha: 0.6);
+    }
+  }
+}

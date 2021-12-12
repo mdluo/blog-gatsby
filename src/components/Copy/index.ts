@@ -1,2 +1,1 @@
-import Copy from './Copy';
-export default Copy;
+export { default } from './Copy';

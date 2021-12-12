@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import ClipboardJS from 'clipboard';
 
 interface Props {
@@ -6,23 +6,40 @@ interface Props {
 }
 
 const Copy: React.FC<Props> = ({ link }) => {
+  const ref = createRef<HTMLButtonElement>();
+  const [mouseOn, setMouseOn] = useState(false);
   const [tooltip, setTooltip] = useState(false);
+
   useEffect(() => {
-    const clipboard = new ClipboardJS('.btn-link.text-gray-light');
-    clipboard.on('success', () => setTooltip(true));
-  });
+    if (ref.current) {
+      const clipboard = new ClipboardJS(ref.current);
+      clipboard.on('success', (e: { trigger: HTMLButtonElement }) => {
+        setTooltip(true);
+        e.trigger.focus();
+      });
+    }
+  }, [ref.current]);
 
   return (
-    <span
-      className={`btn-link text-gray-light ml-1 ${tooltip &&
-        'tooltipped tooltipped-s'}`}
+    <button
+      ref={ref}
+      className={`btn-link text-color-secondary ${tooltip &&
+        'tooltipped tooltipped-s tooltipped-no-delay'}`}
+      title="Copy the short link to this post"
+      style={mouseOn ? { outline: 'none' } : {}}
+      type="button"
       data-clipboard-text={link}
       aria-label="Copied"
       onBlur={() => setTooltip(false)}
-      onMouseLeave={() => setTooltip(false)}
+      onMouseEnter={() => setMouseOn(true)}
+      onMouseLeave={(e) => {
+        setMouseOn(false);
+        setTooltip(false);
+        ref.current.blur();
+      }}
     >
       {link}
-    </span>
+    </button>
   );
 };
 

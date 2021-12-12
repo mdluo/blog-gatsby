@@ -1,0 +1,42 @@
+$text-color-strong: darken($gray-800, 5%);
+$text-color-primary: $gray-800;
+$text-color-primary-muted: lighten($gray-800, 10%);
+$text-color-secondary: lighten($gray-700, 15%);
+$text-color-secondary-muted: $gray-600;
+$text-color-blue: $blue;
+
+.text-color-strong {
+  color: $text-color-strong;
+}
+
+body, .text-color-primary {
+  color: $text-color-primary;
+}
+
+.text-color-primary-muted {
+  color: $text-color-primary-muted;
+}
+
+.text-color-secondary {
+  color: $text-color-secondary;
+}
+
+.text-color-secondary-muted {
+  color: $text-color-secondary-muted;
+}
+
+a, .text-color-blue {
+  color: $text-color-blue;
+}
+
+a.header-title {
+  color: $text-color-secondary-muted;
+
+  &:hover {
+    color: $text-color-strong;
+  }
+}
+
+h1 {
+  font-size: 1.3rem;
+}

@@ -1,0 +1,79 @@
+@import "languages";
+
+:root {
+  --grvsc-padding-top: 0;
+  --grvsc-padding-bottom: 0;
+}
+
+pre.grvsc-container {
+  margin: 1rem 0;
+  line-height: 1.75;
+  background-color: scale-color(#f6f8fa, $lightness: -2%);
+
+  .grvsc-gutter-pad, .grvsc-line-number {
+    background-color: #e1e4e8;
+  }
+
+  .grvsc-line-number {
+    color: #959da5;
+
+    &.no-line-number::before {
+      content: '';
+    }
+  }
+
+  &[data-language]:not(.no-label):before {
+    content: attr(data-language);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.70rem;
+    letter-spacing: 0.075em;
+    line-height: 1;
+    text-align: right;
+    text-transform: uppercase;
+    position: absolute;
+    top: 0px;
+    right: 1rem;
+    border-radius: 0px 0px 4px 4px;
+    z-index: 1;
+    color: $gray-900;
+    background-color: $gray-300;
+  }
+
+  &[data-language="shell"] {
+    .grvsc-gutter-pad, .grvsc-line-number {
+      padding-right: 0;
+      background-color: transparent !important;
+    }
+  }
+  &.prompt-dollar {
+    .grvsc-line-number:not(.no-line-number)::before {
+      content: '$';
+    }
+  }
+  &.prompt-hash {
+    .grvsc-line-number:not(.no-line-number)::before {
+      content: '#';
+    }
+  }
+
+  code {
+    font-size: 0.85rem;
+  }
+
+  .grvsc-line:first-child {
+    .grvsc-gutter-pad, .grvsc-line-number, .grvsc-source {
+      padding-top: 0.5rem;
+    }
+  }
+
+  .grvsc-line:last-child {
+    .grvsc-gutter-pad, .grvsc-line-number, .grvsc-source {
+      padding-bottom: 0.5rem;
+    }
+  }
+
+  .grvsc-line-number {
+    padding: 0 0.5rem 0 0;
+    opacity: 1;
+  }
+}

@@ -1,2 +1,1 @@
-import Corner from './Corner';
-export default Corner;
+export { default } from './Corner';

@@ -1,0 +1,52 @@
+.markdown-body {
+  line-height: 1.6;
+
+  h1 {
+    font-size: 1.3rem;
+  }
+  h2 {
+    font-size: 1.2rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+  }
+  h4 {
+    font-size: 1rem;
+  }
+  h5 {
+    font-size: 0.9rem;
+  }
+  h6 {
+    font-size: 0.8rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    &[id] a.anchor {
+      margin-left: -1em;
+      margin-top: 2px;
+      visibility: hidden;
+    }
+
+    &[id]:hover a.anchor {
+      visibility: visible;
+    }
+  }
+
+  ol, ul {
+    padding-left: 1em;
+  }
+
+  .highlight pre, pre {
+    padding: inherit;
+  }
+
+  pre code, pre tt {
+    display: inline-table;
+  }
+
+  blockquote {
+    color: $text-gray;
+  }
+}

@@ -1,0 +1,17 @@
+@import "mixins";
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-weight: $font-weight-normal;
+  border-top: 5px solid $blue;
+  @include background-2x("/images/gplaypattern", "png", 188px, 178px, left top, repeat);
+  background-color: $gray-100;
+  background-blend-mode: multiply;
+}
+
+#___gatsby, #gatsby-focus-wrapper {
+  height: 100%;
+}

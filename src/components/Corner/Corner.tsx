@@ -1,40 +1,23 @@
 import React from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
-import { CornerQuery } from 'generated/types/gatsby';
 
-import Icon from '../../assets/images/github-corner.svg';
-import './Corner.scss';
+import Octocat from 'images/github-corner.svg';
 
-const Corner: React.FC = () => {
-  const data = useStaticQuery<CornerQuery>(graphql`
-    query Corner {
-      site {
-        siteMetadata {
-          github {
-            owner
-            repo
-          }
-        }
-      }
-    }
-  `);
+interface Props {
+  repo: string;
+}
 
-  const {
-    site: {
-      siteMetadata: { github },
-    },
-  } = data;
-
+const Corner: React.FC<Props> = ({ repo }) => {
   return (
     <a
+      title="GitHub"
       className="github-corner position-absolute top-0 right-0"
-      href={`https://github.com/${github.owner}/${github.repo}`}
+      href={`https://github.com/${repo}`}
       target="_blank"
       rel="noopener noreferrer"
     >
-      <Icon />
+      <Octocat />
     </a>
   );
 };
 
-export default Corner;
+export default React.memo(Corner);

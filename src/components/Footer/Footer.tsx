@@ -1,26 +1,30 @@
 import React from 'react';
-import Octicon, { Heart } from '@primer/octicons-react';
-import { useStaticQuery, graphql } from 'gatsby';
-import { FooterQuery } from 'generated/types/gatsby';
+import { graphql as gql, useStaticQuery, Link } from 'gatsby';
+import { HeartFillIcon } from '@primer/octicons-react';
+import Loadable from '@loadable/component';
 
-const Footer: React.FC = () => {
-  const data = useStaticQuery<FooterQuery>(graphql`
-    query Footer {
-      site {
-        siteMetadata {
-          author
-        }
-      }
-    }
-  `);
+const Icon = Loadable(() => import('components/icon'));
 
+interface Props {
+  author: string;
+}
+
+const Footer: React.FC<Props> = ({ author }) => {
   return (
     <footer className="bg-white border-top border-gray-light pt-4 pb-3">
-      <div className="container-md f5 lh-condensed-ultra text-center text-gray-light">
+      <div className="container-md f5 lh-condensed-ultra text-center text-color-secondary">
+        <p className="footer-icons">
+          <Icon icon="github" id={author} />
+          <Icon icon="twitter" id={author} />
+          <Icon icon="linkedin" id={author} />
+          <Icon icon="goodreads" id={author} />
+          <Icon icon="twitch" id={author} />
+          <Icon icon="steam" id={author} />
+        </p>
         <p>
           Powered by{' '}
           <a
-            href="https://www.gatsbyjs.org"
+            href="https://github.com/gatsbyjs/gatsby"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -37,15 +41,13 @@ const Footer: React.FC = () => {
           .
         </p>
         <p>
-          &copy; 2014-{new Date().getFullYear()}. Made with{' '}
-          <span style={{ zoom: '85%' }}>
-            <Octicon icon={Heart} />
-          </span>{' '}
-          by {data.site.siteMetadata.author}.
+          &copy; 2014-{new Date().getFullYear()}. Made with
+          <HeartFillIcon className="mx-2" size={12} verticalAlign="middle" />
+          by {author}.
         </p>
       </div>
     </footer>
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

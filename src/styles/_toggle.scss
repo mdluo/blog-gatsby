@@ -1,0 +1,48 @@
+// https://raw.githubusercontent.com/instructure-react/react-toggle/master/style.css
+@import "react-toggle/style.css";
+
+.react-toggle-track-check, .react-toggle-track-x {
+  height: 100%; 
+
+  > svg {
+    height: 100%;
+  }
+}
+
+.react-toggle-track-check {
+  left: 7px;
+}
+
+.react-toggle-track-x {
+  right: 12px;
+}
+
+.react-toggle-track {
+  background-color: $gray-500;
+}
+
+.react-toggle:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: $gray-900;
+}
+
+.react-toggle--checked .react-toggle-track {
+  background-color: $gray-700;
+}
+
+.react-toggle--checked:hover:not(.react-toggle--disabled) .react-toggle-track {
+  background-color: $gray-500;
+}
+
+.react-toggle-thumb {
+  background-color: $gray-100;
+  border-color: $gray-700;
+}
+
+.react-toggle--checked .react-toggle-thumb {
+  background-color: $gray-300;
+  border-color: $gray-700;
+}
+
+.react-toggle--focus .react-toggle-thumb, .react-toggle:active:not(.react-toggle--disabled) .react-toggle-thumb {
+  box-shadow: 0 0 2px 3px rgba($blue-500, 0.8);
+}

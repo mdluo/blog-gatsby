@@ -1,0 +1,9 @@
+.flash {
+  &.my-2:first-of-type {
+    margin-top: 1.5rem !important;
+  }
+
+  .flash-close {
+    float: unset;
+  }
+}

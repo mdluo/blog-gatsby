@@ -1,0 +1,12 @@
+// https://primer.style/css/support/variables
+
+$blue: #337ab7;
+$blue-light: change-color($blue, $saturation: 66%, $lightness: 62%);
+
+$font-size-small: 14px;
+$body-font-size: 16px;
+
+$font-weight-bold: 500;
+$font-weight-semibold: 400;
+$font-weight-normal: 300;
+$font-weight-light: 200;

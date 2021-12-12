@@ -1,0 +1,110 @@
+pre.grvsc-container {
+  &.medium-red[data-language]::before {
+    color: $white !important;
+    background-color: #ac4142 !important;
+  }
+  &.light-red[data-language]::before {
+    color: $white !important;
+    background-color: #c97071 !important;
+  }
+  &.dark-red[data-language]::before {
+    color: $white !important;
+    background-color: #c97071 !important;
+  }
+  &.medium-green[data-language]::before {
+    color: $white !important;
+    background-color: #90a959 !important;
+  }
+  &.light-green[data-language]::before {
+    color: $black !important;
+    background-color: #b2c38b !important;
+  }
+  &.dark-green[data-language]::before {
+    color: $white !important;
+    background-color: #66783e !important;
+  }
+  &.medium-yellow[data-language]::before {
+    color: $black !important;
+    background-color: #f4bf75 !important;
+  }
+  &.light-yellow[data-language]::before {
+    color: $black !important;
+    background-color: #fae0bc !important;
+  }
+  &.dark-yellow[data-language]::before {
+    color: $black !important;
+    background-color: #ee9e2e !important;
+  }
+  &.medium-blue[data-language]::before {
+    color: $white !important;
+    background-color: #6a9fb5 !important;
+  }
+  &.light-blue[data-language]::before {
+    color: $black !important;
+    background-color: #9dc0ce !important;
+  }
+  &.dark-blue[data-language]::before {
+    color: $white !important;
+    background-color: #46788d !important;
+  }
+  &.medium-maroon[data-language]::before {
+    color: $white !important;
+    background-color: #8f5536 !important;
+  }
+  &.light-maroon[data-language]::before {
+    color: $white !important;
+    background-color: #be7953 !important;
+  }
+  &.dark-maroon[data-language]::before {
+    color: $white !important;
+    background-color: #573421 !important;
+  }
+  &.medium-purple[data-language]::before {
+    color: $white !important;
+    background-color: #aa759f !important;
+  }
+  &.light-purple[data-language]::before {
+    color: $black !important;
+    background-color: #c7a4c0 !important;
+  }
+  &.dark-purple[data-language]::before {
+    color: $white !important;
+    background-color: #825078 !important;
+  }
+  &.medium-orange[data-language]::before {
+    color: $white !important;
+    background-color: #d28445 !important;
+  }
+  &.light-orange[data-language]::before {
+    color: $black !important;
+    background-color: #e1ad83 !important;
+  }
+  &.dark-orange[data-language]::before {
+    color: $white !important;
+    background-color: #a35f27 !important;
+  }
+  &.medium-cyan[data-language]::before {
+    color: $white !important;
+    background-color: #75b5aa !important;
+  }
+  &.light-cyan[data-language]::before {
+    color: $black !important;
+    background-color: #a7d0c9 !important;
+  }
+  &.dark-cyan[data-language]::before {
+    color: $white !important;
+    background-color: #4d9085 !important;
+  }
+  &.medium-pink[data-language]::before {
+    color: $white !important;
+    background-color: #ff00cc !important;
+  }
+  &.light-pink[data-language]::before {
+    color: $white !important;
+    background-color: #ff4ddb !important;
+  }
+  &.dark-pink[data-language]::before {
+    color: $white !important;
+    background-color: #b3008f !important;
+  }
+}
