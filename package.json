@@ -39,6 +39,7 @@
     "gatsby-plugin-typegen": "^2.2.4",
     "gatsby-plugin-use-dark-mode": "^1.4.0",
     "gatsby-remark-autolink-headers": "^4.11.0",
+    "gatsby-remark-images": "^5.11.0",
     "gatsby-remark-vscode": "^3.3.0",
     "gatsby-source-filesystem": "^3.14.0",
     "gatsby-transformer-remark": "^4.11.0",
