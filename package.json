@@ -7,7 +7,7 @@
     "dev": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
-    "serve": "gatsby serve",
+    "serve": "gatsby serve -p 8001",
     "clean": "gatsby clean",
     "vercel:prod": "vercel --prod"
   },

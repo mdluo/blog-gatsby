@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet';
 import { graphql as gql } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import {
+  ToolsIcon,
   ClockIcon,
   StopIcon,
   CalendarIcon,
@@ -41,6 +42,7 @@ export const LOAD_POST_QUERY = gql`
         link
         tags
         keywords
+        wip
         lasting
         translated
         invalid
@@ -61,7 +63,10 @@ export const LOAD_POST_QUERY = gql`
 `;
 
 const Post: React.FC<Props> = ({ data }) => {
-  const { mdx, site: { siteMetadata } } = data;
+  const {
+    mdx,
+    site: { siteMetadata },
+  } = data;
   const {
     type,
     title,
@@ -69,6 +74,7 @@ const Post: React.FC<Props> = ({ data }) => {
     tags,
     keywords,
     link,
+    wip,
     lasting,
     translated,
     invalid,
@@ -76,7 +82,9 @@ const Post: React.FC<Props> = ({ data }) => {
   } = mdx.frontmatter;
 
   useLayoutEffect(() => {
-    const pres = document.querySelectorAll<HTMLPreElement>('pre.grvsc-container');
+    const pres = document.querySelectorAll<HTMLPreElement>(
+      'pre.grvsc-container'
+    );
     pres.forEach((pre) => {
       const code = pre.querySelector('code');
       const div = document.createElement('div');
@@ -87,9 +95,17 @@ const Post: React.FC<Props> = ({ data }) => {
 
       if (pre.className.includes('prompt-')) {
         pre.querySelectorAll<HTMLSpanElement>('.grvsc-line').forEach((line) => {
-          const source = line.querySelector<HTMLSpanElement>('.grvsc-source > span');
-          if (!source || !source.innerText.trim().length || source.innerText.startsWith(' ')) {
-            line.querySelector('.grvsc-line-number').classList.add('no-line-number');
+          const source = line.querySelector<HTMLSpanElement>(
+            '.grvsc-source > span'
+          );
+          if (
+            !source ||
+            !source.innerText.trim().length ||
+            source.innerText.startsWith(' ')
+          ) {
+            line
+              .querySelector('.grvsc-line-number')
+              .classList.add('no-line-number');
           }
         });
       }
@@ -117,33 +133,36 @@ const Post: React.FC<Props> = ({ data }) => {
           )}
           {link && (
             <span className="d-inline-block mr-3">
-              <CopyIcon
-                className="mr-1"
-                size={12}
-                verticalAlign="unset"
-              />
+              <CopyIcon className="mr-1" size={12} verticalAlign="unset" />
               <Copy link={link} />
             </span>
           )}
         </p>
       )}
+      {wip && (
+        <Alert>
+          <ToolsIcon />
+          This post is a work in progress, come back later.
+        </Alert>
+      )}
       {!invalid && outdated && (
         <Alert>
           <ClockIcon />
-          This post was written more than {createdAt.fromNow()}, some
-          information may be outdated.
+          This post was written more than {createdAt.fromNow()}, it may be
+          partially or completely outdated.
         </Alert>
       )}
       {!invalid && translated && (
         <Alert color="warn">
           <Googletranslate className="octicon" size="1em" />
-          This post was translated by Google, some wording may be incorrect.
+          This post was translated by Google.
         </Alert>
       )}
       {invalid && (
         <Alert color="error" closeable={false}>
           <StopIcon />
-          This post is no longer valid (likely due to the content is way too outdated).
+          This post is no longer valid (likely due to the content is way too
+          outdated).
         </Alert>
       )}
       {!invalid && (

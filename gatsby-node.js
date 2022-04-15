@@ -12,7 +12,6 @@ const LOAD_ALL_MDX_QUERY = print(gql`
           frontmatter {
             title
             date
-            draft
             slug
           }
         }

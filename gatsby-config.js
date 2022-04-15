@@ -113,6 +113,7 @@ module.exports = {
         nodeType: 'Mdx',
         // set `fields.draft` to `false` for all nodes when NODE_ENV is
         // 'development'
+        pickDraft: node => node.frontmatter.publish !== true,
         publishDraft: process.env.NODE_ENV === 'development',
       },
     },
