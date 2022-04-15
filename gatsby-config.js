@@ -56,7 +56,7 @@ module.exports = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 1200,
+              wrapperStyle: 'border-radius: 5px; overflow: hidden;',
             },
           },
           {
@@ -83,6 +83,9 @@ module.exports = {
                 if (match) {
                   const [color] = match.colour;
                   classNames.push(color);
+                }
+                if (parsedOptions.breakSpaces) {
+                  classNames.push('break-spaces');
                 }
                 if (parsedOptions.noLabel || language === 'shell') {
                   classNames.push('no-label');

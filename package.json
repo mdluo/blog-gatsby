@@ -4,7 +4,7 @@
   "description": "mdluo's blog",
   "version": "3.1.0",
   "scripts": {
-    "develop": "gatsby develop",
+    "dev": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",
     "serve": "gatsby serve",

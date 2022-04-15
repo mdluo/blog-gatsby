@@ -17,8 +17,6 @@ const Footer: React.FC<Props> = ({ author }) => {
           <Icon icon="github" id={author} />
           <Icon icon="twitter" id={author} />
           <Icon icon="linkedin" id={author} />
-          <Icon icon="goodreads" id={author} />
-          <Icon icon="twitch" id={author} />
           <Icon icon="steam" id={author} />
         </p>
         <p>
