@@ -1,20 +1,24 @@
-@import "languages";
+@import 'languages';
 
 :root {
   --grvsc-padding-top: 0;
   --grvsc-padding-bottom: 0;
 }
 
+body:not(.dark-mode) pre.grvsc-container {
+  background-color: scale-color(#f6f8fa, $lightness: -2.5%) !important;
+}
+
 pre.grvsc-container {
   margin: 1rem 0;
   line-height: 1.75;
-  background-color: scale-color(#f6f8fa, $lightness: -2%);
 
   &.break-spaces {
     white-space: break-spaces;
   }
 
-  .grvsc-gutter-pad, .grvsc-line-number {
+  .grvsc-gutter-pad,
+  .grvsc-line-number {
     background-color: #e1e4e8;
   }
 
@@ -29,7 +33,7 @@ pre.grvsc-container {
   &[data-language]:not(.no-label):before {
     content: attr(data-language);
     padding: 0.25rem 0.5rem;
-    font-size: 0.70rem;
+    font-size: 0.7rem;
     letter-spacing: 0.075em;
     line-height: 1;
     text-align: right;
@@ -43,8 +47,9 @@ pre.grvsc-container {
     background-color: $gray-300;
   }
 
-  &[data-language="shell"] {
-    .grvsc-gutter-pad, .grvsc-line-number {
+  &[data-language='shell'] {
+    .grvsc-gutter-pad,
+    .grvsc-line-number {
       padding-right: 0;
       background-color: transparent !important;
     }
@@ -65,13 +70,17 @@ pre.grvsc-container {
   }
 
   .grvsc-line:first-child {
-    .grvsc-gutter-pad, .grvsc-line-number, .grvsc-source {
+    .grvsc-gutter-pad,
+    .grvsc-line-number,
+    .grvsc-source {
       padding-top: 0.5rem;
     }
   }
 
   .grvsc-line:last-child {
-    .grvsc-gutter-pad, .grvsc-line-number, .grvsc-source {
+    .grvsc-gutter-pad,
+    .grvsc-line-number,
+    .grvsc-source {
       padding-bottom: 0.5rem;
     }
   }

@@ -1,7 +1,11 @@
 body.dark-mode {
+  @include background-2x("/images/gplaypattern-dark", "png", 188px, 178px, left top, repeat);
+  background-color: $black;
+  border-top-color: $blue-light;
+
   $text-color-strong: lighten($gray-200, 5%);
-  $text-color-primary: $gray-200;
-  $text-color-primary-muted: darken($gray-200, 10%);
+  $text-color-primary: darken($gray-200, 10%);
+  $text-color-primary-muted: darken($gray-200, 20%);
   $text-color-secondary: darken($gray-300, 15%);
   $text-color-secondary-muted: $gray-400;
   $text-color-blue: $blue-light;
@@ -29,11 +33,6 @@ body.dark-mode {
   a, .text-color-blue {
     color: $text-color-blue;
   }
-
-  background-color: $black;
-  background-blend-mode: color-burn;
-  -webkit-background-composite: plus-darker;
-  border-top-color: $blue-light;
 
   a.header-title {
     color: $text-color-secondary-muted;
@@ -63,7 +62,6 @@ body.dark-mode {
     h1,
     h2,
     h3 {
-      color: $text-color-strong;
       border-color: $gray-700;
 
       &[id] a.anchor {
