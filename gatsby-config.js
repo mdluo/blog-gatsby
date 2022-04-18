@@ -74,7 +74,7 @@ module.exports = {
                   'extensions/akamud.vscode-theme-onelight-2.2.3.vsix'
                 ),
                 path.resolve(
-                  'extensions/zhuangtongfa.Material-theme-3.12.1.vsix'
+                  'extensions/zhuangtongfa.Material-theme-3.13.21.vsix'
                 ),
               ],
               wrapperClassName: ({ language, parsedOptions }) => {
